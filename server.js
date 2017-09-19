@@ -19,7 +19,7 @@ app.get('/', function (req, res) {
 function hash(input,salt)
 {
     var hashed=crypto.pbkdk2Sync(input,salt,10000,512,'sho512');
-    return hashed;
+    return hashed.toString('hex');
 }
 app.get('/hash/:input',function(req,res){
     var hashedString=hash(req.params(input,'this-is -rsndom-string'));
