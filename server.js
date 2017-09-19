@@ -2,13 +2,13 @@ var express = require('express');
 var morgan = require('morgan');
 var path = require('path');
 var pool=reqquire('pg').pool;
-var config={
+/*var config={
     user: 'arpitha723',
     database: 'arpitha723',
     host: 'db.imad.hasura-app.io',
     port: '5432',
     password:process.env.DB_PASSWORD
-};
+};*/
 var crypto=require('crypto');
 var app = express();
 app.use(morgan('combined'));
@@ -25,7 +25,8 @@ app.get('/hash/:input',function(req,res){
     var hashedString=hash(req.params(input,'this-is -rsndom-string'));
     res.send(hashedString);
 });
-var pool=new pool(config);
+
+/*var pool=new pool(config);
 app.get('/text-db',function(req,res){
     
     pool.query('SELECT * FROM text',function(err,result){
@@ -37,7 +38,7 @@ app.get('/text-db',function(req,res){
         }
     });
     
-});
+});*/
 
 app.get('/article', function (req, res) {
   res.sendFile(path.join(__dirname, 'ui', 'article.html'));
