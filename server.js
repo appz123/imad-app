@@ -9,12 +9,21 @@ var config={
     port: '5432',
     password:process.env.DB_PASSWORD
 };
-
+var crypto=require('crypto');
 var app = express();
 app.use(morgan('combined'));
 
 app.get('/', function (req, res) {
   res.sendFile(path.join(__dirname, 'ui', 'index.html'));
+});
+function hash(input,salt)
+{
+    var hashed=crypto.pbkdk2Sync(input,salt,10000,512,'sho512');
+    return hashed;
+}
+app.get('/hash/:input',function(req,res){
+    var hashedString=hash(req.params(input,'this-is -rsndom-string'));
+    res.send(hashedString);
 });
 var pool=new pool(config);
 app.get('/text-db',function(req,res){
